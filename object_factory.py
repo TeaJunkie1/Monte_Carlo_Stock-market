@@ -1,11 +1,11 @@
 from chart_plotter import chart_plotter
 from file_repository import file_repository
 from monte_carlo_simulator import monte_carlo_simulator
-from companies_extractor import webpage_companies_extractor as webpage_companies_extractor
 from companies_extractor import static_companies_extractor as static_companies_extractor
 from price_extractor import price_extractor
 from calculator import metrics_calculator
 import optimiser_factory as optimiser_factory
+
 
 class object_factory:
     def __init__(self, settings):

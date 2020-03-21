@@ -18,7 +18,7 @@ class monte_carlo_simulator:
         portfolio_size = len(returns.index)
         np.random.seed(0)
 
-        # pridani stejny alokace, pro royhodnuti jak jsou dobry/ spatny
+        # pridani stejny alokace, pro rozhodnuti jak jsou dobry/ spatny
         equal_allocations = self.get_equal_allocations(portfolio_size)
         portfolio_id = 'EqualAllocationPortfolio'
         self.compute_portfolio_risk_return_sharpe_ratio(portfolio_id, equal_allocations, portfolios_allocations_df, returns, covariance, risk_free_rate) 

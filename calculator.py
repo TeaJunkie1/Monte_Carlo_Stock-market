@@ -1,6 +1,6 @@
 import numpy as np
 from functools import reduce
-import pandas as pd
+
 
 class risk_return_calculator:
     @staticmethod
@@ -23,8 +23,8 @@ class risk_return_calculator:
     def calculate_daily_asset_returns(stock_prices, return_type):
         return np.log(stock_prices / stock_prices.shift(1))
 
+
 class metrics_calculator:  
-    
 
     @staticmethod
     def calculate_sharpe_ratio(risk, returns, risk_free_rate):

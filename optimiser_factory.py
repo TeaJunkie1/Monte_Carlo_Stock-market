@@ -50,8 +50,9 @@ class optimiser:
             portfolios_allocations_df[portfolio_id] = portfolio_data
 
             #printout 10x cca
-            if (i%counter_to_print==0):
-                print('Completed Generating '+str(i)+' Portfolios')
+            if (i%counter_to_print==9):
+            #for (i ):
+                print('Completed Generating '+str(i)+ ' '+ 'Portfolios')
         return portfolios_allocations_df
         
     def solve(self, x0, constraints, bounds, covariance):

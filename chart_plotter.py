@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 class chart_plotter:
 
     def __init__(self, mc):
@@ -45,7 +46,7 @@ class chart_plotter:
         x = equal_allocations_portfolio['Risk']
         y = equal_allocations_portfolio['Return']
         name = equal_allocations_portfolio['Portfolio']
-        self.plot_single_point(x,y,'Portfolio: '+name, 'black')
+        self.plot_single_point(x,y,'Portfolio: '+name, 'blue')
     
 
     def plot_prices(self, closing_prices):
@@ -67,6 +68,7 @@ class chart_plotter:
         ax = fig.add_subplot(111)
         cax = ax.matshow(df.corr(), interpolation='nearest')
         fig.colorbar(cax)
+        
 
         ax.set_xticklabels(cols)
         ax.set_yticklabels(cols)

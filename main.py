@@ -2,6 +2,7 @@ from settings import settings
 from object_factory import object_factory
 from mappers import portfolios_allocation_mapper
 
+
 def generate_optimum_portfolio():
     
     #k objektum priradit settings
@@ -11,7 +12,7 @@ def generate_optimum_portfolio():
     mcs = obj_factory.get_portfolio_generator()
     fr = obj_factory.get_file_repository()
     mc = obj_factory.get_metrics_calculator()
-    
+
 
     print('1. Get companies')
     companies = ce.get_companies_list()
