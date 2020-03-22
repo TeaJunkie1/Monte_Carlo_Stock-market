@@ -4,7 +4,6 @@ from mappers import portfolios_allocation_mapper
 
 def generate_optimum_portfolio():
     
-    #instantiate the objects with the settings
     obj_factory = object_factory(settings)
     ce = obj_factory.get_companies_extractor()
     cp = obj_factory.get_charts_plotter()
