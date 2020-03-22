@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
 class monte_carlo_simulator:
     def __init__(self, mc, risk_function, return_function, numberOfPortfolios):
         self.__numberOfPortfolios = numberOfPortfolios
@@ -18,19 +17,19 @@ class monte_carlo_simulator:
         portfolio_size = len(returns.index)
         np.random.seed(0)
 
-        # pridani stejny alokace, pro rozhodnuti jak jsou dobry/ spatny
+        
         equal_allocations = self.get_equal_allocations(portfolio_size)
         portfolio_id = 'EqualAllocationPortfolio'
         self.compute_portfolio_risk_return_sharpe_ratio(portfolio_id, equal_allocations, portfolios_allocations_df, returns, covariance, risk_free_rate) 
 
-        #generovat portfolio
+        #generace portfolii
         counter_to_print =  int(self.__numberOfPortfolios/10)
         for i in range(self.__numberOfPortfolios):
             portfolio_id = 'Portfolio_'+str(i)
             allocations = self.get_random_allocations(portfolio_size)
             self.compute_portfolio_risk_return_sharpe_ratio(portfolio_id, allocations, portfolios_allocations_df,returns, covariance, risk_free_rate)
             
-            #tisknout asi 10x
+            #vytisknout  10x
             if (i%counter_to_print==0):
                 print('Completed Generating '+ str(i) +'Portfolios')
 
@@ -38,18 +37,19 @@ class monte_carlo_simulator:
 
     def compute_portfolio_risk_return_sharpe_ratio(self, portfolio_id, allocations, portfolios_allocations_df, returns, covariance, risk_free_rate):
     
-        #Calculate expected returns of portfolio
+        
+        #vypocita ocekavanou navratnost portfolia
         expected_returns = self.__return_function(returns, allocations)
-        #Calculate risk of portfolio
+        #vypocita riziko portfolia
         risk = self.__risk_function(allocations,covariance)
-        #Calculate Sharpe ratio of portfolio
+        #vypocita sharpuv pomer portfolia
         sharpe_ratio = self.__mc.calculate_sharpe_ratio(risk, expected_returns, risk_free_rate)
         
         portfolio_data = allocations
         portfolio_data = np.append(portfolio_data,expected_returns)
         portfolio_data = np.append(portfolio_data,risk)
         portfolio_data = np.append(portfolio_data,sharpe_ratio)
-        #add data to the dataframe            
+        #prida data do dataframu            
         portfolios_allocations_df[portfolio_id] = portfolio_data
 
     def get_equal_allocations(self, portfolio_size):

@@ -13,7 +13,6 @@ class webpage_companies_extractor:
             company_names = first_table
             return company_names
 
-
 class static_companies_extractor:
     def __init__(self, my_companies):
         self.__my_companies = my_companies

@@ -15,14 +15,15 @@ class chart_plotter:
 
     def plot_single_point(self, x,y,title,colour):
         plt.scatter(x=x, y=y, c=colour, marker='D', s=200)
-        plt.annotate(title, # text
-                 (x,y), # bod k labelu
-                 textcoords="offset points", # position textu
-                 xytext=(0,10), # vzdalenost textu od bodu (x,y)
-                 ha='center') # horiyont. zarovn. center
+        #plt.annotate(title, (x,y), textcoords="offset points",  xytext=(0,10),  ha='center')
+
+
+
+
 
     def plot_portfolios(self, df):
-        # najdi Volatilitu & max sharpe hodnoty v df
+        
+        # najde min volatilitu a maximalni sharpuv pomer v Dataframu
         
         max_sharpe_ratio = self.__mc.get_max_sharpe_ratio(df)
         min_risk = self.__mc.get_min_risk(df)
@@ -68,7 +69,6 @@ class chart_plotter:
         ax = fig.add_subplot(111)
         cax = ax.matshow(df.corr(), interpolation='nearest')
         fig.colorbar(cax)
-        
 
         ax.set_xticklabels(cols)
         ax.set_yticklabels(cols)

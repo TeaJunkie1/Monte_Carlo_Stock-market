@@ -2,10 +2,8 @@ import numpy as np
 from scipy.optimize import minimize
 import pandas as pd
 
-
 class optimiser:
     Constraints = []
-
     def __init__(self, mc, risk_function, return_function, targets, portfolio_size):
         self.__portfolio_size = portfolio_size
         self.__targets = targets
@@ -31,11 +29,11 @@ class optimiser:
                                      'fun': lambda allocations, returns:
                                      my_return - self.__return_function(returns, allocations)})
 
-            #optimalizovana alokace
+            #optimalizovane alokace
             allocations = self.solve(x0, constraints, bounds, covariance).x
             expectedreturns = self.__return_function(returns, allocations)
 
-            #spocitej volatilitu
+            #vypocita volatilitu
             volatility = self.__risk_function(allocations, covariance)
 
             sharpe_ratio = self.__mc.calculate_sharpe_ratio(volatility, expectedreturns, risk_free_rate)
@@ -49,10 +47,9 @@ class optimiser:
             portfolio_id = 'Portfolio_'+str(i)
             portfolios_allocations_df[portfolio_id] = portfolio_data
 
-            #printout 10x cca
-            if (i%counter_to_print==9):
-            #for (i ):
-                print('Completed Generating '+str(i)+ ' '+ 'Portfolios')
+            #tiskne 10x do konzole
+            if (i%counter_to_print==0):
+                print('Completed Generating '+str(i)+' Portfolios')
         return portfolios_allocations_df
         
     def solve(self, x0, constraints, bounds, covariance):
@@ -62,3 +59,6 @@ class optimiser:
                        options={'disp': True},
                        constraints=constraints,
                        bounds=bounds)
+
+    
+    

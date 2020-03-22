@@ -8,13 +8,12 @@ class settings:
     ReturnType = 'Geometric'
     Optimisersettings = {}
     OptimiserType = 'OLS'
-    CompaniesUrl = 'https://en.wikipedia.org/wiki/NASDAQ-100'#'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
     NumberOfPortfolios = 10000
     API = 'yahoo'
     YearsToGoBack = 3
     RiskFreeRate = 0
     CompanyFetchMode = "PreFixed" #Auto
-    MyCompanies = ['ZM','UBER','SWI','RNG','CRWD', 'WORK', 'TSLA']
+    MyCompanies = ['NFLX', 'AVST.L', 'TWTR', 'FB', 'GOOG', 'AMZN', 'AAPL']
     PortfolioOptimisationPath = 'C:\Temp\PortfolioOptimisation.xlsx'
     RiskFunction = risk_return_calculator.calculate_portfolio_risk
     ReturnFunction = risk_return_calculator.calculate_portfolio_expectedreturns

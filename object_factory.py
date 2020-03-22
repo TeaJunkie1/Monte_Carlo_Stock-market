@@ -6,7 +6,6 @@ from price_extractor import price_extractor
 from calculator import metrics_calculator
 import optimiser_factory as optimiser_factory
 
-
 class object_factory:
     def __init__(self, settings):
         self.__settings = settings 

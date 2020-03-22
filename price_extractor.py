@@ -1,10 +1,5 @@
 import pandas as pd
-import numpy as np
 import pandas_datareader.data as web
-import matplotlib.pyplot as plt
-import scipy.optimize as solver
-import datetime as dt
-from functools import reduce
 
 
 class price_extractor:

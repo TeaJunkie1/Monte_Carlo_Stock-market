@@ -23,8 +23,8 @@ class risk_return_calculator:
     def calculate_daily_asset_returns(stock_prices, return_type):
         return np.log(stock_prices / stock_prices.shift(1))
 
-
 class metrics_calculator:  
+    
 
     @staticmethod
     def calculate_sharpe_ratio(risk, returns, risk_free_rate):
@@ -32,8 +32,8 @@ class metrics_calculator:
 
     @staticmethod
     def get_max_sharpe_ratio(df):
-        return df[df['SharpeRatio'].astype(float).idxmax()]
+        return df.iloc[df['SharpeRatio'].astype(float).idxmax()]
 
     @staticmethod
     def get_min_risk(df):
-        return df[df['Risk'].astype(float).idxmin()]
+        return df.iloc[df['Risk'].astype(float).idxmin()]

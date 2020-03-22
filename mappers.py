@@ -1,8 +1,5 @@
 import pandas as pd
-
-
 class portfolios_allocation_mapper:
-
     @staticmethod
     def map_to_risk_return_ratios(input):
         portfolios = input.columns.values[2:]

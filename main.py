@@ -2,17 +2,16 @@ from settings import settings
 from object_factory import object_factory
 from mappers import portfolios_allocation_mapper
 
-
 def generate_optimum_portfolio():
     
-    #k objektum priradit settings
+    #instantiate the objects with the settings
     obj_factory = object_factory(settings)
     ce = obj_factory.get_companies_extractor()
     cp = obj_factory.get_charts_plotter()
     mcs = obj_factory.get_portfolio_generator()
     fr = obj_factory.get_file_repository()
     mc = obj_factory.get_metrics_calculator()
-
+    
 
     print('1. Get companies')
     companies = ce.get_companies_list()
@@ -23,33 +22,32 @@ def generate_optimum_portfolio():
     start_date = settings.get_start_date(end_date)
     closing_prices = price_extractor.get_prices(settings.PriceEvent, start_date, end_date)
 
-    #plotnout hodnoty stock a savenout do slozky
+    
+    # vytvori graf ceny akcii a da do tabulky
     cp.plot_prices(closing_prices)    
     fr.save_to_file(closing_prices, 'StockPrices')
 
     print('3. Calculate Daily Returns')    
     returns = settings.DailyAssetsReturnsFunction(closing_prices, settings.ReturnType)
-
-    #plotnout hodnoty stock a savenout do slozky
+    #graf dennich navratu a da do tabulky
     cp.plot_returns(returns)
     fr.save_to_file(returns, 'Returns')
 
     print('4. Calculate Expected Mean Return & Covariance')
     expected_returns = settings.AssetsExpectedReturnsFunction(returns)
     covariance = settings.AssetsCovarianceFunction(returns)
-
-
-    # plotnout a ulozit covarianci do slozky
+    #graf + da do tabulky
     cp.plot_correlation_matrix(returns)
     fr.save_to_file(covariance, 'Covariances')
 
     print('5. Use Monte Carlo Simulation')
-
-    #generovat portfolio s alokaci
+    
+    #generuje portfolia s alokaci
     portfolios_allocations_df = mcs.generate_portfolios(expected_returns, covariance, settings.RiskFreeRate)
     portfolio_risk_return_ratio_df = portfolios_allocation_mapper.map_to_risk_return_ratios(portfolios_allocations_df)
     
-    # plotnout portfolio, printnout max sharp hodnoty a ulozit do slozky
+    
+    #graf portfolii, vytiskne sharpuv pomer a da do tabulky
     cp.plot_portfolios(portfolio_risk_return_ratio_df)
     max_sharpe_portfolio = mc.get_max_sharpe_ratio(portfolio_risk_return_ratio_df)['Portfolio']
     max_shape_ratio_allocations = portfolios_allocations_df[[ 'Symbol', max_sharpe_portfolio]]
@@ -58,20 +56,19 @@ def generate_optimum_portfolio():
     fr.save_to_file(portfolio_risk_return_ratio_df, 'MonteCarloPortfolioRatios')   
     
     print('6. Use an optimiser')
-    #generovat portfolio
+    #generuje optimalni portfolia
     targets = settings.get_my_targets()    
     optimiser = obj_factory.get_optimiser(targets, len(expected_returns.index))    
     portfolios_allocations_df = optimiser.generate_portfolios(expected_returns, covariance, settings.RiskFreeRate)
     portfolio_risk_return_ratio_df = portfolios_allocation_mapper.map_to_risk_return_ratios(portfolios_allocations_df)
 
-    #plotnout efficient frontiers
+    #da do grafu efektivni hranici
     cp.plot_efficient_frontier(portfolio_risk_return_ratio_df)
     cp.show_plots()
 
-    #save data
+    #ulozi tabulku
     print('7. Saving Data')
     fr.save_to_file(portfolios_allocations_df, 'OptimisationPortfolios')
     fr.close()
-
 
 generate_optimum_portfolio()
