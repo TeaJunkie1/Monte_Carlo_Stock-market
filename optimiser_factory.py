@@ -33,7 +33,7 @@ class optimiser:
             allocations = self.solve(x0, constraints, bounds, covariance).x
             expectedreturns = self.__return_function(returns, allocations)
 
-            #vypocita volatilitu
+            #vypocita rizikovou funkci,  tj volatilitu
             volatility = self.__risk_function(allocations, covariance)
 
             sharpe_ratio = self.__mc.calculate_sharpe_ratio(volatility, expectedreturns, risk_free_rate)

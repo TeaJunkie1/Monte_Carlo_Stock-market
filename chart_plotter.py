@@ -15,7 +15,7 @@ class chart_plotter:
 
     def plot_single_point(self, x,y,title,colour):
         plt.scatter(x=x, y=y, c=colour, marker='D', s=200)
-        #plt.annotate(title, (x,y), textcoords="offset points",  xytext=(0,10),  ha='center')
+        #plt.annotate(title, (x,y) , textcoords="offset points",  xytext=(0,10),  ha='center')
 
 
 
